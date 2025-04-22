@@ -19,8 +19,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-inline-size: 320px;
-  min-block-size: 100dvb;
   background-image: var(--bg-image);
   background-size: cover;
   background-attachment: fixed;
@@ -28,9 +26,53 @@
   background-repeat: no-repeat;
 }
 
+@media (width <= 376px) {
+  .page {
+    inline-size: 100%;
+    min-block-size: 100dvb;
+  }
+
+  .header {
+    min-width: 100vw;
+    object-fit: contain;
+  }
+
+  .card__header {
+    padding: 6px 10px;
+  }
+
+  .card__image-label {
+    inset: 25px 12px auto auto;
+  }
+
+  .card__text-wrap {
+    margin: 24px 26px 24px;
+  }
+
+  .button-save {
+    flex-direction: column;
+  }
+
+  .button-save__icon {
+    width: 30px;
+  }
+
+  .modal {
+    padding: 30px 40px;
+  }
+
+  .modal[open] {
+    gap: 30px;
+  }
+
+  .modal__icon {
+    width: 95px;
+  }
+}
+
 .header {
   inline-size: clamp(375px, 100%, 700px);
-  margin: 102px auto;
+  margin: 100px auto;
   font-family: var(--accent-font), sans-serif;
   display: flex;
   flex-direction: column;
@@ -58,7 +100,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  inline-size: clamp(375px, 100%, 700px);
+  width: clamp(375px, 100%, 700px);
 }
 
 .card {
@@ -67,8 +109,9 @@
   width: 100%;
   border: 2px solid var(--accent-color);
   font-size: 18px;
-  line-height: 21px;
+  line-height: 1.16667;
   background-color: var(--main-theme-color);
+  margin-block-end: 50px;
 }
 
 .card__header {
@@ -76,16 +119,16 @@
   border-block-end: inherit;
   font: inherit;
   font-variation-settings: "wght" var(--font-weight-bold);
-  padding: 4px 10px;
+  padding: 5px 10px;
 }
 
 .card__image-wrap {
   position: relative;
-  aspect-ratio: 1;
   overflow: hidden;
   width: 100%;
   display: flex;
   justify-content: flex-end;
+  aspect-ratio: 1;
 }
 
 .card__image-label {
@@ -97,18 +140,16 @@
   font-size: 14px;
   line-height: 14px;
   mix-blend-mode: hard-light;
-  text-shadow: 
-  -1px 0 var(--main-theme-color), 
-  0 1px var(--main-theme-color), 
-  1px 0 var(--main-theme-color), 
-  0 -1px var(--main-theme-color);
+  text-shadow: -1px 0 var(--main-theme-color), 0 1px var(--main-theme-color),
+    1px 0 var(--main-theme-color), 0 -1px var(--main-theme-color);
 }
 
-@supports (text-stroke: 0.5px var(--main-theme-color)) or (-webkit-text-stroke: 0.5px var(--main-theme-color)) {
+@supports (text-stroke: 0.5px var(--main-theme-color)) or
+  (-webkit-text-stroke: 0.5px var(--main-theme-color)) {
   .card__image-label {
-    text-shadow: none;
-    -webkit-text-stroke: 0.5px var(--main-theme-color);
     text-stroke: 0.5px var(--main-theme-color);
+    -webkit-text-stroke: 0.5px var(--main-theme-color);
+    text-shadow: none;
   }
 }
 
@@ -124,7 +165,7 @@
   gap: 27px;
   font: inherit;
   font-variation-settings: "wght" var(--font-weight-normal);
-  margin: 25px;
+  margin: 27px 25px 25px;
 }
 
 .card__buttons-wrap {
@@ -135,54 +176,147 @@
 }
 
 .card__icon-button {
-  display: flex;
-  align-items: center;
   block-size: 38px;
   border: 2px solid transparent;
   background-color: var(--main-theme-color);
   cursor: pointer;
-  /*transition: border-color var(--animation-time);*/
+  transition: border-color var(--animation-time) ease;
 }
 
-.card__icon-button:focus-visible {
-  border: 2px solid var(--main-color, #000);
+.card__icon-button:focus {
   outline: none;
 }
 
-/*.contour {
-  fill: var(--accent-color);
-  transition: fill linear 0.1s;
-}
-
-.button {
-  position: relative;
+.card__icon-button:focus-visible {
   border: 2px solid var(--accent-color);
-    overflow: hidden;
-    background-color: #fff;
-    color: #fff;
-    transition: box-shadow var(--animation-time);
-    cursor: pointer;
-    font-family: inherit;
-    font-size*/
+  outline: none;
+}
 
 .card__like-button {
   block-size: 38px;
   inline-size: 130px;
   border: 2px solid var(--accent-color);
   background-color: inherit;
+  color: var(--main-theme-color);
+}
+
+.button {
+  position: relative;
+  border: 2px solid var(--accent-color);
+  overflow: hidden;
+  background-color: var(--main-theme-color);
+  color: var(--main-theme-color);
   cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  transition: box-shadow var(--animation-time);
+}
+
+.button-save {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  margin-block-end: 105px;
+  padding: 15px 20px;
+}
+
+.button-save__icon {
+  width: 21px;
+  height: 21px;
+  mix-blend-mode: difference;
 }
 
 .button__text {
   font-family: var(--accent-font), sans-serif;
   font-size: 14px;
-  line-height: 13px;
+  line-height: 12.6px;
+  mix-blend-mode: difference;
 }
 
-.button:focus {
-  outline: none;
+.modal {
+  padding: 30px;
+  color: var(--accent-color);
+  font-family: var(--accent-font), sans-serif;
+  font-size: 14px;
+  line-height: 21px;
+  background-color: var(--main-theme-color);
+}
+
+.modal[open] {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.modal__content-wrap {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.modal__icon {
+  width: 39px;
+}
+
+.modal__text {
+  max-width: 234px;
+  text-transform: uppercase;
+}
+
+.modal__button {
+  width: 100%;
+  padding: 10px 0;
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: #000;
+  transform-origin: left;
+  transition: translate 0.5s ease-in-out;
+  translate: -100%;
+}
+
+.modal::backdrop {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.button:hover:before {
+  translate: 0%;
 }
 
 .button:focus-visible {
-  box-shadow: 2px 2px 0 var(--accent-color);
+  outline: none;
+  box-shadow: 2px 2px 0px var(--accent-color);
+  transition: box-shadow 0.3s ease;
+}
+
+.filter__clean-list {
+  filter: sepia(0.7) invert(1);
+}
+
+.filter__css-begin {
+  filter: saturate(6.8);
+}
+
+.filter__css-perfecto {
+  filter: contrast(5.8) saturate(1.5);
+}
+
+.filter__support-all {
+  filter: blur(1.9px) hue-rotate(-9deg);
+}
+
+.filter__different {
+  filter: grayscale(0.9);
+}
+
+.filter__concentration {
+  filter: sepia(2.7) contrast(7);
+}
+
+.filter__result {
+  filter: brightness(0.8) sepia(0.7) invert(1);
 }
