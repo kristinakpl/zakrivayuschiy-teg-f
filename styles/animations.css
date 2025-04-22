@@ -9,7 +9,7 @@
 ✦ button__text — для обозначения текстового элемента внутри кнопки
 
 */
-@keyframes arrow {
+@keyframes jiggleArrow {
   from {
     margin-inline-start: -4px;
   }
@@ -18,7 +18,7 @@
   }
 }
 
-@keyframes beat {
+@keyframes pulseHeart {
   from {
     scale: 1 1;
   }
@@ -27,7 +27,7 @@
   }
 }
 
-@keyframes sparks {
+@keyframes fadeInSparks {
   from {
     fill: transparent;
   }
